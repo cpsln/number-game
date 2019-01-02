@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+<title>Inkoop Assessment Code</title>
+</head>
+<body>
+  <div id="result">
+    <h1>Number Game</h1>
+    <p>Build a game in js with following rules</p>
+    <ul>
+        <li>User has 1000 INR when he starts the game</li>
+        <li>Every try(click on start) is charged 100 INR</li>
+        <li>Game is over if user has less than 100 INR</li>
+        <li>Every try generates three random numbers, each random number is in 0-9 range</li>
+        <li>If all the numbers are odd/even (eg. 2 4 6), user gets 300 INR</li>
+        <li>If the numbers are in sequence with difference of 1 in any order (eg. 2 3 4 or 3 2 4 or 4 6 5), user gets 800 INR</li>
+        <li>If all the numbers are same (eg. 4 4 4), user gets 1000 INR</li>
+        <li>Else user gets no money</li>
+    </ul>
+    <h3 id="randomNumbers"></h3>
+    <div id="message"></div>
+    <div>You have <span id="moneyLeft">1000</span> INR</div>
+  </div>
+
+    <button id="startButton" onclick=start()>Start</button>
+    <script type="text/javascript">
+            //write your code here
+            var total=1000;
+            function start()
+            {
+              total=total-100;
+              var number=[]
+              var no1,no2,no3;
+              var msg="";
+              for(i=0;i<3;i++)
+              {
+
+                 number.push(Math.floor(Math.random() * 10));
+              }
+              no1=number[0];
+              no2=number[1];
+              no3=number[2];
+              number.sort();
+              if(total<100){
+                  msg="Game Over";
+                  document.getElementById("startButton").disabled = true;
+                }
+                else if(number[0]%2==0 && number[1]%2==0 && number[2]%2==0){
+                msg="You were lucky this time, you got the 300 INR as all numbers are even.";
+                total+=300;
+              }
+              else if(number[0]%2!=0 && number[1]%2!=0 && number[2]%2!=0){
+              msg="You were lucky this time, you got the 300 INR as all numbers are odd.";
+              total+=300;
+              }
+              else if((number[2]-number[1]==1)&&(number[1]-number[0]==1)){
+                msg="You were lucky this time, you got the 800 INR as all numbers have difference 1."
+                total+=800;
+              }
+              else if((number[0]==number[1] ) && (number[2]==number[1])) {
+                msg="You were lucky this time, you got the 1000 INR as all numbers are same."
+                total+=1000;
+              }
+              else {
+                msg="You were not lucky this time."
+              }
+              //document.getElementById("result").innerHTML ="";
+              document.getElementById("result").innerHTML ="Random numbers are:</br>"+" "+no1 + " "+ no2 +" "+no3+"</br></br>"+msg+"</br></br>"+"You have "+total+" INR.";
+               //document.getElementById("message").innerHTML= msg ;
+             //document.getElementById("moneyLeft").innerHTMl= total;
+
+            }
+    </script>
+</body>
+</html>
